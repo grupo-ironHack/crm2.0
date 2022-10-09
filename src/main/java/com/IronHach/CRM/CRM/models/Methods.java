@@ -254,12 +254,19 @@ public class Methods {
     }
     public static SalesRep generateNewSalesRep(){
         String nameSalesRep = "";
+        String nameDm = "";
 
         while (nameSalesRep.split(" +").length < 2 || nameSalesRep.isEmpty()) {
             System.out.println("Please enter name and last name:");
             nameSalesRep = scanner.nextLine();
         }
-
+        while (nameDm.split(" +").length < 2 || nameDm.isEmpty()) {
+            System.out.println("Please enter name and last name of the decision maker:");
+            nameDm = scanner.nextLine();
+        }
+        /////////////////////////////////////////////////
+        ////---> NO SÉ SI PIDEN LA LINEA 263 REVISAR <---
+        /////////////////////////////////////////////////
 
         SalesRep salesRep = new SalesRep(nameSalesRep);
         System.out.println("Your lead " + nameSalesRep.toUpperCase() + " was created successfully!!!");
