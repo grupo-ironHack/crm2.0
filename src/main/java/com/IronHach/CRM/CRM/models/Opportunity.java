@@ -4,10 +4,7 @@ import com.IronHach.CRM.CRM.enums.Product;
 import com.IronHach.CRM.CRM.enums.Status;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,6 +27,11 @@ public class Opportunity {
     //---------------------------------------------
     static Scanner scanner = new Scanner(System.in);
     public static List<Opportunity> arrayOfOpps = new ArrayList<>();
+
+    //---------------------------------------------
+    @ManyToOne
+    //(@JoinColumn(name = "opportunty_id") Se tiene que hacer estoooooo
+    private SalesRep opportunityListSR;
 
     //Constructors--------------------------------
     public Opportunity() {

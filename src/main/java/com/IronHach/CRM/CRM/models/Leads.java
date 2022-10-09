@@ -1,9 +1,8 @@
 package com.IronHach.CRM.CRM.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+
+import javax.persistence.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 @Entity
 public class Leads {
@@ -29,10 +30,30 @@ public class Leads {
     static Scanner scanner = new Scanner(System.in);
     public static List<Leads> arrayOfLeads = new ArrayList<>();
 
+    //Porque, no entendemos - relacion con leads
+    @ManyToOne
+    @JoinColumn(name = "contact_ID")
     private Contact contact;
+
     //---------------------------------------------
 
+    @ManyToOne
+    private SalesRep leadsListSR;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+
     //Constructors--------------------------------
+
+
+
+
     public Leads() {
     }
 

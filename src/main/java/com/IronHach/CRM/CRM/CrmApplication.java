@@ -1,6 +1,7 @@
 package com.IronHach.CRM.CRM;
 
 import com.IronHach.CRM.CRM.models.Steps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,8 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CrmApplication implements CommandLineRunner {
 
+
+	
+	public static void main(String[] args) {
+
+	}
+
 	@Override
 	public void run(String... args) throws Exception {
+		SpringApplication.run(CrmApplication.class, args);
 		String action = "";
 
 
@@ -25,15 +33,6 @@ public class CrmApplication implements CommandLineRunner {
 			System.out.println(e.getMessage());
 		}
 
-
-
-	}
-
-
-
-
-	public static void main(String[] args) {
-		SpringApplication.run(CrmApplication.class, args);
 	}
 }
 

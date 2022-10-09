@@ -1,10 +1,8 @@
 package com.IronHach.CRM.CRM.models;
 
 import com.IronHach.CRM.CRM.enums.Industry;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -57,6 +55,8 @@ public class Accounts {
     public static List<Accounts> arrayOfAcc;
     //---------------------------------------------
 
+    @ManyToOne
+    private SalesRep accountListSR;
 
     //Constructors--------------------------------
 
