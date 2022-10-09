@@ -104,13 +104,15 @@ public class Methods {
             }
         }
     }
-
+    ///////////////////////
+    //LEAD & CONTACT METHOD
+    ///////////////////////
     public static Contact convertIdLead(String idParam) {
         Contact contact = new Contact();
         for (int i = 0; i < arrayOfLeads.size(); i++) {
             if (idParam.equals(arrayOfLeads.get(i).getId())) {
-                contact = new Contact(arrayOfLeads.get(i).getName(), arrayOfLeads.get(i).getPhone(), arrayOfLeads.get(i).getEmail(), arrayOfLeads.get(i).getCompanyName());
-                System.out.println(arrayOfLeads.get(i).getPhone() + " " + arrayOfLeads.get(i).getEmail() + " " + arrayOfLeads.get(i).getCompanyName());
+                contact = new Contact(arrayOfLeads.get(i).getName(), arrayOfLeads.get(i).getPhone(), arrayOfLeads.get(i).getEmail(), arrayOfLeads.get(i).getCompanyName(), arrayOfLeads.get(i).getSalesRep());
+                System.out.println(arrayOfLeads.get(i).getPhone() + " " + arrayOfLeads.get(i).getEmail() + " " + arrayOfLeads.get(i).getCompanyName() + " " + arrayOfLeads.get(i).getSalesRep());
                 arrayOfLeads.remove(i);
                 System.out.println("The list of leads is know: " + arrayOfLeads.size());
                 return contact;

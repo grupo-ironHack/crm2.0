@@ -15,8 +15,8 @@ public class Contact extends Leads{
 
     public Contact() {
     }
-    public Contact(String name, String phone, String email, String companyName) {
-        super(name, phone, email, companyName);
+    public Contact(String name, String phone, String email, String companyName, SalesRep salesRep) {
+        super(name, phone, email, companyName, salesRep);
         setId(ID_STR + idCounter++);
     }
 
