@@ -6,6 +6,7 @@ import com.IronHach.CRM.CRM.enums.Status;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static com.IronHach.CRM.CRM.models.Accounts.setCountryList;
@@ -29,6 +30,8 @@ public class Methods {
     private Contact contact;
     static List<Opportunity> arrayOfOpps = new ArrayList<>();
 
+    static List<SalesRep> arrayOfSalesRep = new ArrayList<>();
+
     static Product product;
     static Industry industry;
 
@@ -43,6 +46,7 @@ public class Methods {
         String phoneLead = "";
         String emailLead = "";
         String companyLead = "";
+        SalesRep salesRep = new SalesRep();
         while (namelead.split(" +").length < 2 || namelead.isEmpty()) {
             System.out.println("Please enter name and last name:");
             namelead = scanner.nextLine();
@@ -53,8 +57,11 @@ public class Methods {
         emailLead = scanner.nextLine();
         System.out.println("Please enter the company name:");
         companyLead = scanner.nextLine();
+        System.out.println("Please enter de ID  of your Sales Repository");
+        salesRep.setId(scanner.nextLine());
 
-        Leads lead = new Leads(namelead, phoneLead, emailLead, companyLead);
+
+        Leads lead = new Leads(namelead, phoneLead, emailLead, companyLead, salesRep);
         System.out.println("Your lead " + namelead.toUpperCase() + " was created successfully!!!");
         addLeadtoList(lead);
         return lead;
@@ -237,6 +244,46 @@ public class Methods {
             }
         }
 
+    }
+    ///////////////////
+    //SALES REP METHODS
+    //////////////////
+
+    public static void addSalesReptoList(SalesRep salesParam) {
+        arrayOfSalesRep.add(salesParam);
+    }
+    public static SalesRep generateNewSalesRep(){
+        String nameSalesRep = "";
+
+        while (nameSalesRep.split(" +").length < 2 || nameSalesRep.isEmpty()) {
+            System.out.println("Please enter name and last name:");
+            nameSalesRep = scanner.nextLine();
+        }
+
+
+        SalesRep salesRep = new SalesRep(nameSalesRep);
+        System.out.println("Your lead " + nameSalesRep.toUpperCase() + " was created successfully!!!");
+        addSalesReptoList(salesRep);
+        return salesRep;
+
+    }
+
+    public static void showSalesRep() {
+        if (arrayOfSalesRep.isEmpty()) {
+            System.out.println("Sorry the list of leads is empty");
+            String action = "";
+            Boolean quitApp = true;
+
+            while (quitApp) {
+                action = Steps.menu();
+                quitApp = Steps.actions(action);
+                action = "";
+            }
+        } else {
+            for (int i = 0; i < arrayOfSalesRep.size(); i++) {
+                System.out.println(arrayOfSalesRep.get(i).getId() + " " + arrayOfSalesRep.get(i).getName());
+            }
+        }
     }
 
 

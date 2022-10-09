@@ -30,6 +30,8 @@ public class Leads {
     public static List<Leads> arrayOfLeads = new ArrayList<>();
 
     private Contact contact;
+
+    private SalesRep salesRep;
     //---------------------------------------------
 
     //Constructors--------------------------------
@@ -42,6 +44,14 @@ public class Leads {
         setPhone(phone);
         setEmail(email);
         setCompanyName(companyName);
+    }
+    public Leads(String namelead, String phoneLead, String emailLead, String companyLead, SalesRep salesRep) {
+        setId(ID_STR + idCounter++);
+        setName(name);
+        setPhone(phone);
+        setEmail(email);
+        setCompanyName(companyName);
+        setSalesRep(salesRep);
     }
 
     //Getters and Setters-------------------------
@@ -88,6 +98,14 @@ public class Leads {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public SalesRep getSalesRep() {
+        return salesRep;
+    }
+
+    public void setSalesRep(SalesRep salesRep) {
+        this.salesRep = salesRep;
     }
 
     /* ______________________________________________________________________________________ */
