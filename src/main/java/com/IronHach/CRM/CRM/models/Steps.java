@@ -1,18 +1,32 @@
 package com.IronHach.CRM.CRM.models;
 
+import com.IronHach.CRM.CRM.Repositories.OpportunityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Steps {
     public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
     public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
     static Scanner scanner = new Scanner(System.in);
     static String userInput = "";
     static String menuInput = "";
+    static String actionInputReport = "";
     static Contact infoContact = new Contact();
+
+    //static OpportunityRepository opportunityRepository;
+
+    @Autowired
+    static
+    OpportunityRepository opportunityRepository;
 
     public static void greeting() {
         System.out.println(ANSI_RED_BACKGROUND + "                        * CRM APPLICATION *                          " + ANSI_RED_BACKGROUND + ANSI_RESET);
@@ -37,7 +51,7 @@ public class Steps {
 
     public static String menu() {
         String answermenuInput = "";
-        System.out.println(ANSI_RED_BACKGROUND + "                        * CRM APPLICATION *                          " + ANSI_RED_BACKGROUND + ANSI_RESET);
+        System.out.println(ANSI_WHITE_BACKGROUND + ANSI_BLACK + "                        * CRM APPLICATION *                          " + ANSI_RESET + ANSI_RESET);
         System.out.println(ANSI_YELLOW +
                 "\n                 PLEASE TYPE WHAT DO YOU WANT TO DO" + ANSI_YELLOW +
                 "\n---------------------------------------------------------------------" + ANSI_RESET +
@@ -51,12 +65,12 @@ public class Steps {
                 "\n8.-Type 'create account' to display the opportunities you already have." +
                 "\n9.-Type 'show account' to display the opportunities you already have." +
                 "\n9.-Type 'Reporting Functionality' to display Reporting Functionality 📈 menu." +
-                "\n42.-Type 'Quit' to close the application."
+                "\n10.-Type 'Quit' to close ⏏️ the application."
         );
         while (answermenuInput.isEmpty()) {
             answermenuInput = scanner.nextLine();
             if (answermenuInput.isEmpty()) {
-                System.out.println("Please verify you type the action correctly");
+                System.out.println("⚠️Please verify you type the action correctly");
             }
         }
         return answermenuInput;
@@ -123,7 +137,7 @@ public class Steps {
                 System.out.println("\033[0;1m" + ANSI_BLUE_BACKGROUND + "Develop by, Pol, Diana y Yehosuá");
                 return false;
             default:
-                System.out.println("please type the correct action you want to do");
+                System.out.println("⚠️please type the correct action you want to do");
                 return true;
         }
     }
@@ -131,67 +145,197 @@ public class Steps {
 
     public static void reports() {
 
+        boolean quitMenuReport = true;
+        while (quitMenuReport) {
+            actionInputReport = menuReports();
+            quitMenuReport = actionsReport(actionInputReport);
+            actionInputReport = "";
+        }
+
+
     }
 
-    public static void menuReports(){
+    // ANSI_BLUE_BACKGROUND
+    public static String menuReports() {
         String answermenuInput = "";
-        System.out.println(ANSI_RED_BACKGROUND + "                        * CRM APPLICATION *                          " + ANSI_RED_BACKGROUND + ANSI_RESET);
-        System.out.println(ANSI_YELLOW +
-                "\n                 PLEASE TYPE WHAT DO YOU WANT TO DO" + ANSI_YELLOW +
-                "\n---------------------------------------------------------------------" + ANSI_RESET +
-                "\n - - - - - - - - - -  Reporting Functionality 📈- - - - - - - - - - - -" +
-                "\n -   -   -   -   -   -   -   - SalesRep  📊 -   -   -   -   -   -   -   -" +
-                "\n10.-Type 'Report Lead by SalesRep' to display the count of Leads by SalesRep." +
-                "\n11.-Type 'Report Opportunity by SalesRep' to display count of all Opportunities by SalesRep." +
-                "\n12.-Type 'Report CLOSED-WON by SalesRep' to display the count of all CLOSED_WON Opportunities by SalesRep. " +
-                "\n13.-Type 'Report CLOSED-LOST by SalesRep' to display the count of all CLOSED_LOST Opportunities by SalesRep." +
-                "\n14.-Type 'Report OPEN by SalesRep' to display the count of all OPEN Opportunities by SalesRep." +
-                "\n -   -   -   -   -   -   -   - Product 📦 -   -   -   -   -   -   -   -" +
-                "\n15.-Type 'Report Opportunity by the product' to display the count of all Opportunities by the product." +
-                "\n16.-Type 'Report CLOSED-WON by the product' to display count of all CLOSED_WON Opportunities by the product." +
-                "\n17.-Type 'Report CLOSED-LOST by the product' to display the count of all CLOSED_LOST Opportunities by the product." +
-                "\n18.-Type 'Report OPEN by the product' to display the count of all OPEN Opportunities by the product." +
-                "\n -   -   -   -   -   -   -   - Country 📍 -   -   -   -   -   -   -   -" +
-                "\n19.-Type 'Report Opportunity by Country' to display the count of all Opportunities by country." +
-                "\n20.-Type 'Report CLOSED-WON by Country' to display the count of all CLOSED_WON Opportunities by country." +
-                "\n21.-Type 'Report CLOSED-LOST by Country' to display the count of all CLOSED_LOST Opportunities by country." +
-                "\n22.-Type 'Report OPEN by Country' to display the count of all OPEN Opportunities by country." +
-                "\n -   -   -   -   -   -   -   -  City 🏢  -   -   -   -   -   -   -   -" +
-                "\n23.-Type 'Report Opportunity by City' to display the count of all Opportunities by the city." +
-                "\n24.-Type 'Report CLOSED-WON by City' to display the count of all CLOSED_WON Opportunities by the city." +
-                "\n25.-Type 'Report CLOSED-LOST by City' to display the count of all CLOSED_LOST Opportunities by the city." +
-                "\n26.-Type 'Report OPEN by City' to display the count of all OPEN Opportunities by the city." +
-                "\n -   -   -   -   -   -   -    Industry  ⚙️   -   -   -   -   -   -   -" +
-                "\n27.-Type 'Report Opportunity by Industry' to display the count of all Opportunities by industry." +
-                "\n28.-Type 'Report CLOSED_WON by Industry' to display the count of all CLOSED_WON Opportunities by industry." +
-                "\n29.-Type 'Report CLOSED_LOST by Industry' to display the count of all CLOSED_LOST Opportunities by industry." +
-                "\n30.-Type 'Report OPEN by Industry' to display the count of all OPEN Opportunities by industry." +
-                "\n -   -   -   -   -   -   -  EmployeeCount 👩🏽‍💼🧑🏻‍💼 -   -   -   -   -   -   -" +
-                "\n30.-Type 'Mean EmployeeCount' to display the mean employeeCount." +
-                "\n31.-Type 'Median EmployeeCount' to display the median employeeCount." +
-                "\n32.-Type 'Max EmployeeCount' to display the maximum employeeCount." +
-                "\n33.-Type 'Min EmployeeCount' to display the minimum employeeCount." +
-                "\n -   -   -   -   -   -   -    Quantity  🧮📦   -   -   -   -   -   -   -" +
-                "\n34.-Type 'Mean Quantity' to display the mean products order." +
-                "\n35.-Type 'Median Quantity' to display the minimum products order." +
-                "\n36.-Type 'Max Quantity' to display the minimum products order." +
-                "\n37.-Type 'Min Quantity' to display the minimum products order." +
-                "\n -   -   -   -   -   -   -   Opportunity 🛒  -   -   -   -   -   -   -" +
-                "\n38.-Type 'Mean Opps per Account”' to display the mean of Opportunities associated with an Account." +
-                "\n39.-Type 'Median Opps per Account”' to display the minimum of Opportunities associated with an Account." +
-                "\n40.-Type 'Max Opps per Account”' to display the minimum of Opportunities associated with an Account." +
-                "\n41.-Type 'Min Opps per Account”' to display the minimum of Opportunities associated with an Account." +
-                "\n41.-Type 'main menu”' to display the main menu" +
-                "\n42.-Type 'Quit' to close the application."
+        System.out.println(ANSI_BLUE_BACKGROUND + "                         " +
+                ANSI_BLACK + "   Reporting Functionality 📈   " + ANSI_RESET + ANSI_BLUE_BACKGROUND + "                                 " + ANSI_RESET +
+                ANSI_YELLOW + "\n                    PLEASE TYPE WHAT DO YOU WANT TO DO" + ANSI_YELLOW + ANSI_RESET +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -   - SalesRep  📊 -   -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n1.-Type 'Report Lead by SalesRep' to display the count of Leads by SalesRep." +
+                "\n2.-Type 'Report Opportunity by SalesRep' to display count of all Opportunities by SalesRep." +
+                "\n3.-Type 'Report CLOSED-WON by SalesRep' to display the count of all CLOSED_WON Opportunities by SalesRep. " +
+                "\n4.-Type 'Report CLOSED-LOST by SalesRep' to display the count of all CLOSED_LOST Opportunities by SalesRep." +
+                "\n5.-Type 'Report OPEN by SalesRep' to display the count of all OPEN Opportunities by SalesRep." +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -   - Product 📦 -   -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n6.-Type 'Report Opportunity by product' to display the count of all Opportunities by the product." +
+                "\n7.-Type 'Report CLOSED-WON by product' to display count of all CLOSED_WON Opportunities by the product." +
+                "\n8.-Type 'Report CLOSED-LOST by product' to display the count of all CLOSED_LOST Opportunities by the product." +
+                "\n9.-Type 'Report OPEN by the product' to display the count of all OPEN Opportunities by the product." +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -   - Country 📍 -   -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n10.-Type 'Report Opportunity by Country' to display the count of all Opportunities by country." +
+                "\n11.-Type 'Report CLOSED-WON by Country' to display the count of all CLOSED_WON Opportunities by country." +
+                "\n12.-Type 'Report CLOSED-LOST by Country' to display the count of all CLOSED_LOST Opportunities by country." +
+                "\n13.-Type 'Report OPEN by Country' to display the count of all OPEN Opportunities by country." +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -   -  City 🏢  -   -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n14.-Type 'Report Opportunity by City' to display the count of all Opportunities by the city." +
+                "\n15.-Type 'Report CLOSED-WON by City' to display the count of all CLOSED_WON Opportunities by the city." +
+                "\n16.-Type 'Report CLOSED-LOST by City' to display the count of all CLOSED_LOST Opportunities by the city." +
+                "\n17.-Type 'Report OPEN by City' to display the count of all OPEN Opportunities by the city." +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -    Industry  ⚙️   -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n18.-Type 'Report Opportunity by Industry' to display the count of all Opportunities by industry." +
+                "\n19.-Type 'Report CLOSED_WON by Industry' to display the count of all CLOSED_WON Opportunities by industry." +
+                "\n20.-Type 'Report CLOSED_LOST by Industry' to display the count of all CLOSED_LOST Opportunities by industry." +
+                "\n21.-Type 'Report OPEN by Industry' to display the count of all OPEN Opportunities by industry." +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -  EmployeeCount 👩🏽‍💼🧑🏻‍💼 -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n22.-Type 'Mean EmployeeCount' to display the mean employeeCount." +
+                "\n23.-Type 'Median EmployeeCount' to display the median employeeCount." +
+                "\n24.-Type 'Max EmployeeCount' to display the maximum employeeCount." +
+                "\n25.-Type 'Min EmployeeCount' to display the minimum employeeCount." +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -    Quantity  🧮📦   -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n26.-Type 'Mean Quantity' to display the mean products order." +
+                "\n27.-Type 'Median Quantity' to display the minimum products order." +
+                "\n28.-Type 'Max Quantity' to display the minimum products order." +
+                "\n29.-Type 'Min Quantity' to display the minimum products order." +
+                ANSI_GREEN + "\n -   -   -   -   -   -   -   Opportunity 🛒  -   -   -   -   -   -   -" + ANSI_RESET +
+                "\n30.-Type 'Mean Opps per Account' to display the mean of Opportunities associated with an Account." +
+                "\n31.-Type 'Median Opps per Account' to display the minimum of Opportunities associated with an Account." +
+                "\n32.-Type 'Max Opps per Account' to display the minimum of Opportunities associated with an Account." +
+                "\n33.-Type 'Min Opps per Account' to display the minimum of Opportunities associated with an Account." +
+                "\n34.-Type 'Main menu' to go back ⏮ and display the main menu  " + ANSI_WHITE_BACKGROUND + ANSI_BLACK + "   - CRM Application -   " + ANSI_RESET + ANSI_RESET
         );
         while (answermenuInput.isEmpty()) {
             answermenuInput = scanner.nextLine();
             if (answermenuInput.isEmpty()) {
-                System.out.println("Please verify you type the action correctly");
+                System.out.println("⚠️ Please verify you type the correctly the action you want to do️");
             }
         }
-        //return answermenuInput;
+        return answermenuInput;
+    }
+    public static Boolean actionsReport(String inputTyped) {
+
+        String input = inputTyped.toLowerCase();
+        switch (input) {
+            // ------------------------------SalesRep------------------------------------------------
+            case "report lead by salesrep":
+                System.out.println("You type Report Lead by SalesRep");
+                return true;
+            case "report opportunity by salesrep":
+                System.out.println("You type Report Opportunity by SalesRep");
+                return true;
+            case "report closed-won by salesrep":
+                System.out.println("You type Report CLOSED-WON by SalesRep");
+                return true;
+            case "report closed-lost by salesrep":
+                System.out.println("You type Report CLOSED-LOST by SalesRep");
+                return true;
+            case "report open by salesrep":
+                System.out.println("You type Report OPEN by SalesRep");
+                return true;
+            // ------------------------------Product------------------------------------------------
+            case "report opportunity by product":
+                System.out.println("You type Report Opportunity by product");
+                /*List<Object[]> result = */opportunityRepository.countByProduct();
+                //System.out.println(result);
+                System.out.println("YA PASé POR EL MëTODOS DEL REPOSITORIO");
+                return true;
+            case "report closed-won by product":
+                System.out.println("You type Report CLOSED-WON by product");
+                return true;
+            case "report closed-lost by product":
+                System.out.println("You type Report CLOSED-LOST by product");
+                return true;
+            case "report open by product":
+                System.out.println("You type Report OPEN by product");
+                return true;
+            // -----------------------------Country-------------------------------------------------
+            case "report opportunity by country":
+                System.out.println("You type Report Opportunity by country");
+                return true;
+            case "report closed-won by country":
+                System.out.println("You type Report CLOSED-WON by country");
+                return true;
+            case "report closed-lost by country":
+                System.out.println("You type Report CLOSED-LOST by country");
+                return true;
+            case "report open by country":
+                System.out.println("You type Report OPEN by country");
+                return true;
+            // -----------------------------City-------------------------------------------------
+            case "report opportunity by city":
+                System.out.println("You type Report Opportunity by city");
+                return true;
+            case "report closed-won by city":
+                System.out.println("You type Report CLOSED-WON by city");
+                return true;
+            case "report closed-lost by city":
+                System.out.println("You type Report CLOSED-LOST by city");
+                return true;
+            case "report open by city":
+                System.out.println("You type Report OPEN by city");
+                return true;
+            // -----------------------------Industry-------------------------------------------------
+            case "report opportunity by industry":
+                System.out.println("You type Report Opportunity by industry");
+                return true;
+            case "report closed-won by industry":
+                System.out.println("You type Report CLOSED-WON by industry");
+                return true;
+            case "report closed-lost by industry":
+                System.out.println("You type Report CLOSED-LOST by industry");
+                return true;
+            case "report open by industry":
+                System.out.println("You type Report OPEN by industry");
+                return true;
+            // -----------------------------EmployeeCount-------------------------------------------------
+            case "mean employeecount":
+                System.out.println("You type Mean EmployeeCount");
+                return true;
+            case "median employeecount":
+                System.out.println("You type Median EmployeeCount");
+                return true;
+            case "max employeecount":
+                System.out.println("You type Max EmployeeCount");
+                return true;
+            case "min employeecount":
+                System.out.println("You type Min EmployeeCount");
+                return true;
+            // -----------------------------Quantity-------------------------------------------------
+            case "mean quantity":
+                System.out.println("You type Mean Quantity");
+                return true;
+            case "median quantity":
+                System.out.println("You type Median Quantity");
+                return true;
+            case "max quantity":
+                System.out.println("You type Max Quantity");
+                return true;
+            case "min quantity":
+                System.out.println("You type Min Quantity");
+                return true;
+            // -----------------------------Opportunity-------------------------------------------------
+            case "mean opps per account":
+                System.out.println("You type Mean Opps per Account");
+                return true;
+            case "median opps per account":
+                System.out.println("You type Median Opps per Account");
+                return true;
+            case "max opps per account":
+                System.out.println("You type Max Opps per Account");
+                return true;
+            case "min opps per account":
+                System.out.println("You type Min Opps per Account");
+                return true;
+            // ------------------------------------------------------------------------------
+            case "main menu":
+                System.out.println("\033[0;1m" + "You quit the Reporting Functionality Menu");
+                return false;
+            default:
+                System.out.println("⚠️please type the correct action you want to do");
+                return true;
+        }
+
     }
 
-
 }
+

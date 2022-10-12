@@ -6,38 +6,37 @@ import javax.persistence.*;
 // Faltaria @Inheritance porque extiende de Leads?
 public class Contact extends Leads{
 
+   /* private static final String ID_STR = "CT-0";
+    private static int idCounter = 1;*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static final String ID_STR = "CT-0";
-    private static int idCounter = 1;
-    private String id;
+    private Long id;
 
+    //---------------------------------------------
 
+    @OneToOne
+    private Accounts accountsContacts;
+
+    @OneToOne
+    private Opportunity oppContact;
+
+    //---------------------------------------------
     public Contact() {
     }
     public Contact(String name, String phone, String email, String companyName) {
         super(name, phone, email, companyName);
-        setId(ID_STR + idCounter++);
     }
 
-    public static int getIdCounter() {
-        return idCounter;
-    }
-
-    public static void setIdCounter(int idCounter) {
-        Contact.idCounter = idCounter;
-    }
 
     @Override
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
 
     @Override
     public String toString() {

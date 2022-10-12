@@ -1,9 +1,8 @@
 package com.IronHach.CRM.CRM.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+
+import javax.persistence.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,14 +12,17 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 @Entity
 public class Leads {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /*
     private static final String ID_STR = "LD-0";
     private static int idCounter = 1;
-    String id;
+    */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String phone;
     private String email;
@@ -28,28 +30,32 @@ public class Leads {
     //---------------------------------------------
     static Scanner scanner = new Scanner(System.in);
     public static List<Leads> arrayOfLeads = new ArrayList<>();
+    //---------------------------------------------
+    @ManyToOne
+    private SalesRep leadsListSR;
 
-    private Contact contact;
     //---------------------------------------------
 
     //Constructors--------------------------------
     public Leads() {
     }
-
     public Leads(String name, String phone, String email, String companyName) {
-        setId(ID_STR + idCounter++);
         setName(name);
         setPhone(phone);
         setEmail(email);
         setCompanyName(companyName);
     }
+    public Leads(SalesRep leadsListSR) {
+        this.leadsListSR = leadsListSR;
+    }
 
     //Getters and Setters-------------------------
-    public String getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

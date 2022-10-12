@@ -1,15 +1,22 @@
 package com.IronHach.CRM.CRM.models;
 
+import com.IronHach.CRM.CRM.Repositories.LeadsRepository;
 import com.IronHach.CRM.CRM.enums.Industry;
 import com.IronHach.CRM.CRM.enums.Product;
 import com.IronHach.CRM.CRM.enums.Status;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.function.ServerResponse;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import static com.IronHach.CRM.CRM.models.Accounts.setCountryList;
-
 
 public class Methods {
     public static final String ANSI_RED = "\u001B[31m";
@@ -29,8 +36,14 @@ public class Methods {
     private Contact contact;
     static List<Opportunity> arrayOfOpps = new ArrayList<>();
 
+    static List<SalesRep> arrayOfSalesRep = new ArrayList<>();
+
     static Product product;
     static Industry industry;
+
+    @Autowired
+    static
+    LeadsRepository leadsRepository;
 
     public Methods() {
     }
@@ -53,8 +66,11 @@ public class Methods {
         emailLead = scanner.nextLine();
         System.out.println("Please enter the company name:");
         companyLead = scanner.nextLine();
-
         Leads lead = new Leads(namelead, phoneLead, emailLead, companyLead);
+        //-------
+        leadsRepository.save(lead);
+        //List<Object[]> leadsOptional = leadsRepository.save();
+        //-------
         System.out.println("Your lead " + namelead.toUpperCase() + " was created successfully!!!");
         addLeadtoList(lead);
         return lead;
@@ -168,6 +184,37 @@ public class Methods {
         }
     }
 
+    /*  public static Accounts associateContactToAccount(Contact contact){
+          Accounts acount1 = new Accounts();
+          ;
+          return acount1;
+      }*/
+    public static Accounts doYouWantCreate() {
+        String anwserYes = "Y";
+        String anwserNot = "N";
+        String answer = "";
+        String question = "Would you like to create a new Account?";
+
+        System.out.println(question + ": " + anwserYes + "/" + anwserNot);
+        answer = scanner.next();
+        if (answer.equals(anwserYes)) {
+            return convertToAccount();
+        }
+        if (answer.equals(anwserNot)) {
+            System.out.println("Please introduce the ID account");
+            if (arrayOfAcc.isEmpty()) {
+                throw new IllegalArgumentException("Sorry the list of accounts is empty");
+            } else {
+                for (int i = 0; i < arrayOfAcc.size(); i++) {
+                    System.out.println(arrayOfAcc.get(i).getId());
+                    //es get(i) solo o + getId();
+
+                }
+            }
+        }
+        return new Accounts();
+    }
+
     ////////////////////
     //OPORTUNITY METHODS
     ////////////////////
@@ -204,7 +251,7 @@ public class Methods {
         } while (!productToString.equals("BOX") && !productToString.equals("HYBRID") && !productToString.equals("FLATBED"));
 
         product = Product.valueOf(productToString);
-        System.out.println("\033[0;1m" + ANSI_RED + "Please enter the quantity (Less than 1000): " + ANSI_RESET);
+        System.out.println("\033[0;1m" + "Please enter the quantity" + ANSI_RED + " (Less than 1000)" + ANSI_RESET + ":");
         quantityStr = scanner.next();
         quantity = Integer.parseInt(quantityStr);
 
@@ -237,6 +284,55 @@ public class Methods {
             }
         }
 
+    }
+
+    ///////////////////
+//SALES REP METHODS
+//////////////////
+
+    public static void addSalesReptoList(SalesRep salesParam) {
+        arrayOfSalesRep.add(salesParam);
+    }
+
+    public static SalesRep generateNewSalesRep() {
+        String nameSalesRep = "";
+        String nameDm = "";
+
+        while (nameSalesRep.split(" +").length < 2 || nameSalesRep.isEmpty()) {
+            System.out.println("Please enter name and last name:");
+            nameSalesRep = scanner.nextLine();
+        }
+        while (nameDm.split(" +").length < 2 || nameDm.isEmpty()) {
+            System.out.println("Please enter name and last name of the decision maker:");
+            nameDm = scanner.nextLine();
+        }
+        /////////////////////////////////////////////////
+        ////---> NO SÉ SI PIDEN LA LINEA  REVISAR <---
+        /////////////////////////////////////////////////
+
+        SalesRep salesRep = new SalesRep(nameSalesRep);
+        System.out.println("Your lead " + nameSalesRep.toUpperCase() + " was created successfully!!!");
+        addSalesReptoList(salesRep);
+        return salesRep;
+
+    }
+
+    public static void showSalesRep() {
+        if (arrayOfSalesRep.isEmpty()) {
+            System.out.println("Sorry the list of leads is empty");
+            String action = "";
+            Boolean quitApp = true;
+
+            while (quitApp) {
+                action = Steps.menu();
+                quitApp = Steps.actions(action);
+                action = "";
+            }
+        } else {
+            for (int i = 0; i < arrayOfSalesRep.size(); i++) {
+                System.out.println(arrayOfSalesRep.get(i).getId() + " " + arrayOfSalesRep.get(i).getName());
+            }
+        }
     }
 
 
