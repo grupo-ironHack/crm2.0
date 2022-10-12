@@ -87,5 +87,12 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, String
     List<Object[]> findByAccountsOppsIndustryStatsOpen();
 
 
-    //----------- ByProduct:-----------
+    //----------- ByQuantityProduct:-----------
+
+    @Query("SELECT max(o.quantity) FROM Opportunity o")
+    List<Object[]> findByMaxQuantity();
+
+    @Query("SELECT min(o.quantity) FROM Opportunity o")
+    List<Object[]> findByMinQuantity();
+
 }

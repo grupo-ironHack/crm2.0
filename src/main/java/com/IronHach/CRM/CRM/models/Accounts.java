@@ -74,6 +74,8 @@ public class Accounts {
 
     }
 
+
+
     public Accounts(Industry industry, int numEmployees, String city, String country) {
         this.industry = industry;
         this.numEmployees = numEmployees;

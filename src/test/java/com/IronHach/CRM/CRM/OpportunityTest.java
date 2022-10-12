@@ -246,5 +246,21 @@ public class OpportunityTest {
         Assertions.assertTrue(result.get(0)[2].equals("Pol"));
     }
 
+    //----------- ByQuantityProduct:-----------
+
+    @Test
+    void findByMaxQuantity(){
+        Opportunity random = new Opportunity("Pol Bsaer", Product.BOX, 100, Status.CLOSED_WON);
+        List<Object[]> opportunityOptional = opportunityRepository.findByMaxQuantity();
+        Assertions.assertTrue(opportunityOptional.get(0)[0].equals(15));
+    }
+
+    @Test
+    void findByMinQuantity(){
+        Opportunity random = new Opportunity("Pol Bsdfer", Product.BOX, 10, Status.CLOSED_WON);
+        List<Object[]> opportunityOptional = opportunityRepository.findByMinQuantity();
+        Assertions.assertTrue(opportunityOptional.get(0)[0].equals(10));
+    }
+
 
 }
