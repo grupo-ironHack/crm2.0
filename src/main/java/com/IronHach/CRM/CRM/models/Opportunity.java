@@ -12,37 +12,43 @@ import java.util.Scanner;
 @Entity
 public class Opportunity {
 
+
+    //private static final String ID_OPP = "OY-0";
+   // private static int idCounperOpp = 1;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static final String ID_OPP = "OY-0";
-    private static int idCounperOpp = 1;
-    private String id;
+    private Long id;
     private String dm;
     private Status status;
     private Product product;
     private int quantity;
 
 
+
     //---------------------------------------------
     static Scanner scanner = new Scanner(System.in);
     public static List<Opportunity> arrayOfOpps = new ArrayList<>();
 
+    //---------------------------------------------
+
     @ManyToOne
     private Contact contact;
     @ManyToOne
-    private Accounts accountsOpps;
+     private Accounts accountsOpps;
     @ManyToOne
     private SalesRep opportunityListSR;
 
     @OneToOne
     private Contact contactOpp;
 
+
+
     //Constructors--------------------------------
     public Opportunity() {
     }
 
     public Opportunity(String dm, Product product, int quantity, Status status, Contact contact) {
-        setId(ID_OPP + idCounperOpp++);
         setDm(dm);
         setStatus(status);
         setProduct(product);
@@ -51,7 +57,6 @@ public class Opportunity {
     }
 
     public Opportunity(String dm, Product product, int quantity, Status status) {
-        setId(ID_OPP + idCounperOpp++);
         setDm(dm);
         setStatus(status);
         setProduct(product);
@@ -59,16 +64,37 @@ public class Opportunity {
     }
 
     public Opportunity(Contact contact) {
-        setId(ID_OPP + idCounperOpp++);
         setContact(contact);
     }
 
+    public Opportunity(String dm, Status status, Accounts accountsOpps) {
+        this.dm = dm;
+        this.status = status;
+        this.accountsOpps = accountsOpps;
+    }
+
+    public Opportunity(String dm, Status status, SalesRep opportunityListSR) {
+        this.dm = dm;
+        this.status = status;
+        this.opportunityListSR = opportunityListSR;
+    }
+
+    public Opportunity(Accounts accountsOpps) {
+        this.accountsOpps = accountsOpps;
+    }
+
+    public Opportunity(SalesRep opportunityListSR) {
+        this.opportunityListSR = opportunityListSR;
+    }
+
+
+
     //Getters and Setters-------------------------
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -112,6 +138,8 @@ public class Opportunity {
             throw new IllegalArgumentException("The quantity needs to be between this rang: 1 to 999");
         }
     }
+
+
 
     public Contact getContact() {
         return contact;

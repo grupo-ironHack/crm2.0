@@ -12,15 +12,19 @@ public class Contact extends Leads{
     private static int idCounter = 1;
     private String id;
 
+    //---------------------------------------------
+
     @OneToOne
     private Accounts accountsContacts;
 
     @OneToOne
     private Opportunity oppContact;
+
+    //---------------------------------------------
     public Contact() {
     }
-    public Contact(String name, String phone, String email, String companyName, SalesRep salesRep) {
-        super(name, phone, email, companyName, salesRep);
+    public Contact(String name, String phone, String email, String companyName) {
+        super(name, phone, email, companyName);
         setId(ID_STR + idCounter++);
     }
 

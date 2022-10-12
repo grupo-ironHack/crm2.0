@@ -10,11 +10,11 @@ import java.util.Scanner;
 @Entity
 public class Accounts {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static final String ID_ACC= "AT-0";
-    private static int idCounperAcc = 1;
-    private String id;
+    private Long id;
     private Industry industry;
     private int numEmployees;
 
@@ -54,6 +54,7 @@ public class Accounts {
     static Scanner scanner = new Scanner(System.in);
     public static List<Accounts> arrayOfAcc;
     //---------------------------------------------
+
     @OneToMany (mappedBy = "accountsOpps")
     List<Opportunity> oppsList;
 
@@ -73,8 +74,9 @@ public class Accounts {
 
     }
 
+
+
     public Accounts(Industry industry, int numEmployees, String city, String country) {
-        setId(ID_ACC + idCounperAcc++);
         this.industry = industry;
         this.numEmployees = numEmployees;
         this.city = city;
@@ -82,19 +84,24 @@ public class Accounts {
     }
 
     public Accounts(Industry industry, int numEmployees, String city) {
-        setId(ID_ACC + idCounperAcc++);
         setIndustry(industry);
         setNumEmployees(numEmployees);
         setCity(city);
     }
 
-//Getters and Setters-------------------------
+    public Accounts( Industry industry, String city, String country) {
+        this.industry = industry;
+        this.city = city;
+        this.country = country;
+    }
 
-    public void setId(String id) {
+    //Getters and Setters-------------------------
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -125,6 +132,10 @@ public class Accounts {
         this.city = city;
     }
 
+    public String[] getCountryList() {
+        return countryList;
+    }
+
     public static String setCountryList(String country) {
         for (String a : countryList) {
             if (a.contains(country)) ;
@@ -138,6 +149,8 @@ public class Accounts {
     /* ___________________________________METHODS____________________________________________ */
     /* ______________________________________________________________________________________ */
 
+
+
     @Override
     public String toString() {
         return "Accounts{" +
@@ -148,5 +161,4 @@ public class Accounts {
                 ", country='" + country + '\'' +
                 '}';
     }
-
 }

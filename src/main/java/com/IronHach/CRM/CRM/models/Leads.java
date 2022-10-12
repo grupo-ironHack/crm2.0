@@ -1,5 +1,7 @@
 package com.IronHach.CRM.CRM.models;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,13 +12,16 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 @Entity
 public class Leads {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private static final String ID_STR = "LD-0";
     private static int idCounter = 1;
+
+    @Id
     String id;
     private String name;
     private String phone;
@@ -26,12 +31,19 @@ public class Leads {
     static Scanner scanner = new Scanner(System.in);
     public static List<Leads> arrayOfLeads = new ArrayList<>();
 
+
+    //---------------------------------------------
+
     @ManyToOne
     private SalesRep leadsListSR;
 
     //---------------------------------------------
 
+
+
     //Constructors--------------------------------
+
+
     public Leads() {
     }
 
@@ -42,13 +54,9 @@ public class Leads {
         setEmail(email);
         setCompanyName(companyName);
     }
-    public Leads(String namelead, String phoneLead, String emailLead, String companyLead, SalesRep leadsListSR) {
-        setId(ID_STR + idCounter++);
-        setName(name);
-        setPhone(phone);
-        setEmail(email);
-        setCompanyName(companyName);
-        setLeadsListSR(leadsListSR);
+
+    public Leads(SalesRep leadsListSR) {
+        this.leadsListSR = leadsListSR;
     }
 
     //Getters and Setters-------------------------
@@ -95,14 +103,6 @@ public class Leads {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    public SalesRep getLeadsListSR() {
-        return leadsListSR;
-    }
-
-    public void setLeadsListSR(SalesRep leadsListSR) {
-        this.leadsListSR = leadsListSR;
     }
 
     /* ______________________________________________________________________________________ */

@@ -206,6 +206,37 @@ public class Methods {
         }
     }
 
+  /*  public static Accounts associateContactToAccount(Contact contact){
+        Accounts acount1 = new Accounts();
+        ;
+        return acount1;
+    }*/
+    public static Accounts doYouWantCreate() {
+        String anwserYes = "Y";
+        String anwserNot = "N";
+        String answer = "";
+        String question = "Would you like to create a new Account?";
+
+        System.out.println(question + ": " + anwserYes + "/" + anwserNot);
+        answer = scanner.next();
+        if (answer.equals(anwserYes)) {
+            return convertToAccount();
+        }
+        if (answer.equals(anwserNot)) {
+            System.out.println("Please introduce the ID account");
+            if (arrayOfAcc.isEmpty()) {
+                throw new IllegalArgumentException("Sorry the list of accounts is empty");
+            } else {
+                for (int i = 0; i < arrayOfAcc.size(); i++) {
+                    System.out.println(arrayOfAcc.get(i).getId());
+                    //es get(i) solo o + getId();
+
+                }
+            }
+        }
+        return new Accounts();
+    }
+
     ////////////////////
     //OPORTUNITY METHODS
     ////////////////////
@@ -325,6 +356,54 @@ public class Methods {
     }
 
 
+
+    ///////////////////
+//SALES REP METHODS
+//////////////////
+
+    public static void addSalesReptoList(SalesRep salesParam) {
+        arrayOfSalesRep.add(salesParam);
+    }
+    public static SalesRep generateNewSalesRep(){
+        String nameSalesRep = "";
+        String nameDm = "";
+
+        while (nameSalesRep.split(" +").length < 2 || nameSalesRep.isEmpty()) {
+            System.out.println("Please enter name and last name:");
+            nameSalesRep = scanner.nextLine();
+        }
+        while (nameDm.split(" +").length < 2 || nameDm.isEmpty()) {
+            System.out.println("Please enter name and last name of the decision maker:");
+            nameDm = scanner.nextLine();
+        }
+        /////////////////////////////////////////////////
+        ////---> NO SÉ SI PIDEN LA LINEA  REVISAR <---
+        /////////////////////////////////////////////////
+
+        SalesRep salesRep = new SalesRep(nameSalesRep);
+        System.out.println("Your lead " + nameSalesRep.toUpperCase() + " was created successfully!!!");
+        addSalesReptoList(salesRep);
+        return salesRep;
+
+    }
+
+    public static void showSalesRep() {
+        if (arrayOfSalesRep.isEmpty()) {
+            System.out.println("Sorry the list of leads is empty");
+            String action = "";
+            Boolean quitApp = true;
+
+            while (quitApp) {
+                action = Steps.menu();
+                quitApp = Steps.actions(action);
+                action = "";
+            }
+        } else {
+            for (int i = 0; i < arrayOfSalesRep.size(); i++) {
+                System.out.println(arrayOfSalesRep.get(i).getId() + " " + arrayOfSalesRep.get(i).getName());
+            }
+        }
+    }
 
 
 }
