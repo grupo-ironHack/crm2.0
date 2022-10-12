@@ -10,11 +10,11 @@ import java.util.Scanner;
 @Entity
 public class Accounts {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static final String ID_ACC= "AT-0";
-    private static int idCounperAcc = 1;
-    private String id;
+    private Long id;
     private Industry industry;
     private int numEmployees;
 
@@ -55,6 +55,16 @@ public class Accounts {
     public static List<Accounts> arrayOfAcc;
     //---------------------------------------------
 
+    @OneToMany (mappedBy = "accountsOpps")
+    List<Opportunity> oppsList;
+
+    @OneToOne (mappedBy = "accountsContacts")
+    private Contact contact;
+
+    @OneToOne (mappedBy = "accountsSR")
+    private SalesRep sr;
+
+
     @ManyToOne
     private SalesRep accountListSR;
 
@@ -65,7 +75,6 @@ public class Accounts {
     }
 
     public Accounts(Industry industry, int numEmployees, String city, String country) {
-        setId(ID_ACC + idCounperAcc++);
         this.industry = industry;
         this.numEmployees = numEmployees;
         this.city = city;
@@ -73,16 +82,25 @@ public class Accounts {
     }
 
     public Accounts(Industry industry, int numEmployees, String city) {
-        setId(ID_ACC + idCounperAcc++);
         setIndustry(industry);
         setNumEmployees(numEmployees);
         setCity(city);
     }
 
-//Getters and Setters-------------------------
+    public Accounts( Industry industry, String city, String country) {
+        this.industry = industry;
+        this.city = city;
+        this.country = country;
+    }
 
-    public void setId(String id) {
+    //Getters and Setters-------------------------
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Industry getIndustry() {

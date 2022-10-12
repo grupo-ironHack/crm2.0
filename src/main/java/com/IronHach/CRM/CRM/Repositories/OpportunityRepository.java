@@ -1,5 +1,7 @@
 package com.IronHach.CRM.CRM.Repositories;
 
+import com.IronHach.CRM.CRM.enums.Product;
+import com.IronHach.CRM.CRM.enums.Status;
 import com.IronHach.CRM.CRM.models.Opportunity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,40 +14,77 @@ import java.util.Optional;
 public interface OpportunityRepository extends JpaRepository<Opportunity, String> {
 
 
+     //----------- BySR:-----------
+
+    @Query("SELECT count(o), a.name FROM Opportunity o JOIN SalesRep a ON o.opportunityListSR = a.id GROUP BY a.name")
+    List<Object[]> countBySR();
+
+    @Query("SELECT count(o), o.status, a.name FROM Opportunity o JOIN SalesRep a  ON o.opportunityListSR = a.id WHERE o.status = '1' GROUP BY a.name")
+    List<Object[]> countSrByStatusWon();
+
+    @Query("SELECT count(o), o.status, a.name FROM Opportunity o JOIN SalesRep a  ON o.opportunityListSR = a.id WHERE o.status = '2' GROUP BY a.name")
+    List<Object[]> countSrByStatusLost();
+
+    @Query("SELECT count(o), o.status, a.name FROM Opportunity o JOIN SalesRep a  ON o.opportunityListSR = a.id WHERE o.status = '0' GROUP BY a.name")
+    List<Object[]> countSrByStatusOpen();
+
+
     //----------- ByProduct:-----------
-    Optional<Opportunity> countByProduct(Enum type);
-    Optional<Opportunity> countAllStatusWonByProduct(Enum stats, Enum type);
-    Optional<Opportunity> countAllStatusLostByProduct(Enum stats, Enum type);
-    Optional<Opportunity> countAllStatusOpenByProduct(Enum stats, Enum type);
-        //Si no funciona hacer la sintaxis pura de WorkBench
+
+    @Query("SELECT count(o), o.product FROM Opportunity o GROUP BY  o.product")
+    List<Object[]> countByProduct();
+
+    @Query(value = "SELECT count(o), o.product FROM Opportunity o WHERE o.status = '1' GROUP BY  o.product")
+   List<Object[]> countProductByStatusWon();
+    @Query(value = "SELECT count(o), o.product FROM Opportunity o WHERE o.status = '2' GROUP BY  o.product")
+    List<Object[]> countProductByStatusLost();
+    @Query(value = "SELECT count(o), o.product FROM Opportunity o WHERE o.status = '0' GROUP BY  o.product")
+    List<Object[]> countProductByStatusOpen();
+
 
     //----------- ByCountry:-----------
-    Optional<Opportunity> countByCountry(String country);
 
-    @Query("SELECT Opportunity.opportunity_id, Accounts.country FROM Opportunity WHERE status = won, INNER JOIN Accounts ON Opportunity.sales_rep = Account.Sales_rep GROUP BY country")
-    List<Object[]> countAllStatusWonByCountry();
+   @Query("SELECT count(o), a.country FROM Opportunity o JOIN Accounts a ON o.accountsOpps = a.id GROUP BY a.country")
+   List<Object[]> findByAccountsOppsCountry();
 
-    @Query("SELECT Opportunity.opportunity_id, Accounts.country FROM Opportunity WHERE status = lost, INNER JOIN Accounts ON Opportunity.sales_rep = Account.Sales_rep GROUP BY country")
-    List<Object[]> countAllStatusLostByCountry();
+    @Query("SELECT count(o), o.status, a.country FROM Opportunity o JOIN Accounts a  ON o.accountsOpps = a.id WHERE o.status = '1' GROUP BY a.country")
+    List<Object[]> findByAccountsOppsCountryStatsWon();
 
-    @Query("SELECT Opportunity.opportunity_id, Accounts.country FROM Opportunity WHERE status = open, INNER JOIN Accounts ON Opportunity.sales_rep = Account.Sales_rep GROUP BY country")
-    List<Object[]> countAllStatusOpenByCountry();
+    @Query("SELECT count(o), o.status, a.country FROM Opportunity o JOIN Accounts a  ON  o.accountsOpps = a.id WHERE o.status = '2' GROUP BY a.country")
+    List<Object[]> findByAccountsOppsCountryStatsLost();
+
+    @Query("SELECT count(o), o.status, a.country FROM Opportunity o JOIN Accounts a  ON o.accountsOpps = a.id WHERE o.status = '0' GROUP BY a.country")
+    List<Object[]> findByAccountsOppsCountryStatsOpen();
 
 
 
     //----------- ByCity:-----------
-    Optional<Opportunity> countByCity(String city);
+    @Query("SELECT count(o), a.city FROM Opportunity o JOIN Accounts a ON o.accountsOpps = a.id GROUP BY a.city")
+    List<Object[]> findByAccountsOppsCity();
 
-    @Query("SELECT Opportunity.opportunity_id, Accounts.city FROM Opportunity WHERE status = won, INNER JOIN Accounts ON Opportunity.sales_rep = Account.Sales_rep GROUP BY city")
-    List<Object[]> countAllStatusWonByCity();
+    @Query("SELECT count(o), o.status, a.city FROM Opportunity o JOIN Accounts a  ON o.accountsOpps = a.id WHERE o.status = '1' GROUP BY a.city")
+    List<Object[]> findByAccountsOppsCityStatsWon();
 
-    @Query("SELECT Opportunity.opportunity_id, Accounts.city FROM Opportunity WHERE status = lost, INNER JOIN Accounts ON Opportunity.sales_rep = Account.Sales_rep GROUP BY city")
-    List<Object[]> countAllStatusLostByCity();
+    @Query("SELECT count(o), o.status, a.city FROM Opportunity o JOIN Accounts a  ON  o.accountsOpps = a.id WHERE o.status = '2' GROUP BY a.city")
+    List<Object[]> findByAccountsOppsCityStatsLost();
 
-    @Query("SELECT Opportunity.opportunity_id, Accounts.city FROM Opportunity WHERE status = open, INNER JOIN Accounts ON Opportunity.sales_rep = Account.Sales_rep GROUP BY city")
-    List<Object[]> countAllStatusOpenByCity();
+    @Query("SELECT count(o), o.status, a.city FROM Opportunity o JOIN Accounts a  ON o.accountsOpps = a.id WHERE o.status = '0' GROUP BY a.city")
+    List<Object[]> findByAccountsOppsCityStatsOpen();
+
 
     //----------- ByIndustry:-----------
+
+    @Query("SELECT count(o), a.industry FROM Opportunity o JOIN Accounts a ON o.accountsOpps = a.id GROUP BY a.industry")
+    List<Object[]> findByAccountsOppsIndustry();
+
+    @Query("SELECT count(o), o.status, a.industry FROM Opportunity o JOIN Accounts a  ON o.accountsOpps = a.id WHERE o.status = '1' GROUP BY a.industry")
+    List<Object[]> findByAccountsOppsIndustryStatsWon();
+
+    @Query("SELECT count(o), o.status, a.industry FROM Opportunity o JOIN Accounts a  ON  o.accountsOpps = a.id WHERE o.status = '2' GROUP BY a.industry")
+    List<Object[]> findByAccountsOppsIndustryStatsLost();
+
+    @Query("SELECT count(o), o.status, a.industry FROM Opportunity o JOIN Accounts a  ON o.accountsOpps = a.id WHERE o.status = '0' GROUP BY a.industry")
+    List<Object[]> findByAccountsOppsIndustryStatsOpen();
 
 
     //----------- ByProduct:-----------

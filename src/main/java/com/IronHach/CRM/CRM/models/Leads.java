@@ -17,10 +17,11 @@ import java.util.regex.Pattern;
 @Entity
 public class Leads {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private static final String ID_STR = "LD-0";
     private static int idCounter = 1;
+
+    @Id
     String id;
     private String name;
     private String phone;
@@ -30,28 +31,17 @@ public class Leads {
     static Scanner scanner = new Scanner(System.in);
     public static List<Leads> arrayOfLeads = new ArrayList<>();
 
-    //Porque, no entendemos - relacion con leads
-    @ManyToOne
-    @JoinColumn(name = "contact_ID")
-    private Contact contact;
 
     //---------------------------------------------
 
     @ManyToOne
     private SalesRep leadsListSR;
 
-    public Contact getContact() {
-        return contact;
-    }
+    //---------------------------------------------
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
 
 
     //Constructors--------------------------------
-
-
 
 
     public Leads() {
@@ -63,6 +53,10 @@ public class Leads {
         setPhone(phone);
         setEmail(email);
         setCompanyName(companyName);
+    }
+
+    public Leads(SalesRep leadsListSR) {
+        this.leadsListSR = leadsListSR;
     }
 
     //Getters and Setters-------------------------
