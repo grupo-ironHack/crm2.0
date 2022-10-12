@@ -4,10 +4,7 @@ import com.IronHach.CRM.CRM.enums.Product;
 import com.IronHach.CRM.CRM.enums.Status;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,11 +22,20 @@ public class Opportunity {
     private Product product;
     private int quantity;
 
-    private Contact contact;
 
     //---------------------------------------------
     static Scanner scanner = new Scanner(System.in);
     public static List<Opportunity> arrayOfOpps = new ArrayList<>();
+
+    @ManyToOne
+    private Contact contact;
+    @ManyToOne
+    private Accounts accountsOpps;
+    @ManyToOne
+    private SalesRep opportunityListSR;
+
+    @OneToOne
+    private Contact contactOpp;
 
     //Constructors--------------------------------
     public Opportunity() {

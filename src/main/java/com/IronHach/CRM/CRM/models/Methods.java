@@ -111,8 +111,8 @@ public class Methods {
         Contact contact = new Contact();
         for (int i = 0; i < arrayOfLeads.size(); i++) {
             if (idParam.equals(arrayOfLeads.get(i).getId())) {
-                contact = new Contact(arrayOfLeads.get(i).getName(), arrayOfLeads.get(i).getPhone(), arrayOfLeads.get(i).getEmail(), arrayOfLeads.get(i).getCompanyName(), arrayOfLeads.get(i).getSalesRep());
-                System.out.println(arrayOfLeads.get(i).getPhone() + " " + arrayOfLeads.get(i).getEmail() + " " + arrayOfLeads.get(i).getCompanyName() + " " + arrayOfLeads.get(i).getSalesRep());
+                contact = new Contact(arrayOfLeads.get(i).getName(), arrayOfLeads.get(i).getPhone(), arrayOfLeads.get(i).getEmail(), arrayOfLeads.get(i).getCompanyName(), arrayOfLeads.get(i).getLeadsListSR());
+                System.out.println(arrayOfLeads.get(i).getPhone() + " " + arrayOfLeads.get(i).getEmail() + " " + arrayOfLeads.get(i).getCompanyName() + " " + arrayOfLeads.get(i).getLeadsListSR());
                 arrayOfLeads.remove(i);
                 System.out.println("The list of leads is know: " + arrayOfLeads.size());
                 return contact;
@@ -139,6 +139,35 @@ public class Methods {
     //ACCOUNT METHODS
     /////////////////
 
+    public static Accounts associateContactToAccount(Contact contact){
+        Accounts acount1 = new Accounts();
+       ;
+       return acount1;
+    }
+    public static Accounts doYouWantCreate(){
+        String anwserYes = "Y";
+        String anwserNot = "N";
+        String answer = "";
+        String question = "Would you like to create a new Account?";
+
+        System.out.println(question + ": " + anwserYes +"/" + anwserNot);
+        answer = scanner.next();
+        if (answer.equals(anwserYes)){
+           return convertToAccount();
+        }if (answer.equals(anwserNot)){
+            System.out.println("Please introduce the ID account");
+            if (arrayOfAcc.isEmpty()) {
+                throw new IllegalArgumentException("Sorry the list of accounts is empty");
+            } else {
+                for (int i = 0; i < arrayOfAcc.size(); i++) {
+                    System.out.println(arrayOfAcc.get(i).getId());
+                    //es get(i) solo o + getId();
+
+                }
+            }
+        }
+        return new Accounts();
+    }
     public static Accounts convertToAccount() {
         String numEmployeesStr = "";
         int numEmployees;
@@ -267,7 +296,7 @@ public class Methods {
             nameDm = scanner.nextLine();
         }
         /////////////////////////////////////////////////
-        ////---> NO SÉ SI PIDEN LA LINEA 263 REVISAR <---
+        ////---> NO SÉ SI PIDEN LA LINEA  REVISAR <---
         /////////////////////////////////////////////////
 
         SalesRep salesRep = new SalesRep(nameSalesRep);
@@ -294,6 +323,8 @@ public class Methods {
             }
         }
     }
+
+
 
 
 }

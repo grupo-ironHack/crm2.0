@@ -12,7 +12,11 @@ public class Contact extends Leads{
     private static int idCounter = 1;
     private String id;
 
+    @OneToOne
+    private Accounts accountsContacts;
 
+    @OneToOne
+    private Opportunity oppContact;
     public Contact() {
     }
     public Contact(String name, String phone, String email, String companyName, SalesRep salesRep) {

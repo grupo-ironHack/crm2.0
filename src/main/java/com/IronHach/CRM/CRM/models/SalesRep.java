@@ -1,9 +1,7 @@
 package com.IronHach.CRM.CRM.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class SalesRep {
@@ -16,6 +14,14 @@ public class SalesRep {
 
     private String name;
 
+    @OneToOne
+    private Accounts accountsSR;
+
+    @OneToMany (mappedBy = "opportunityListSR")
+    private List<Opportunity> arrayOfOpps;
+
+    @OneToMany (mappedBy = "leadsListSR")
+    private List<Leads> arrayOfLeads;
     public SalesRep(String name) {
         setId(ID_STR + idCounter++);
         setName(name);

@@ -1,10 +1,8 @@
 package com.IronHach.CRM.CRM.models;
 
 import com.IronHach.CRM.CRM.enums.Industry;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -56,7 +54,18 @@ public class Accounts {
     static Scanner scanner = new Scanner(System.in);
     public static List<Accounts> arrayOfAcc;
     //---------------------------------------------
+    @OneToMany (mappedBy = "accountsOpps")
+    List<Opportunity> oppsList;
 
+    @OneToOne (mappedBy = "accountsContacts")
+    private Contact contact;
+
+    @OneToOne (mappedBy = "accountsSR")
+    private SalesRep sr;
+
+
+    @ManyToOne
+    private SalesRep accountListSR;
 
     //Constructors--------------------------------
 
@@ -83,6 +92,10 @@ public class Accounts {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Industry getIndustry() {
@@ -112,10 +125,6 @@ public class Accounts {
         this.city = city;
     }
 
-    public String[] getCountryList() {
-        return countryList;
-    }
-
     public static String setCountryList(String country) {
         for (String a : countryList) {
             if (a.contains(country)) ;
@@ -139,4 +148,5 @@ public class Accounts {
                 ", country='" + country + '\'' +
                 '}';
     }
+
 }

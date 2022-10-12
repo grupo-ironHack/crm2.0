@@ -1,9 +1,6 @@
 package com.IronHach.CRM.CRM.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,9 +26,9 @@ public class Leads {
     static Scanner scanner = new Scanner(System.in);
     public static List<Leads> arrayOfLeads = new ArrayList<>();
 
-    private Contact contact;
+    @ManyToOne
+    private SalesRep leadsListSR;
 
-    private SalesRep salesRep;
     //---------------------------------------------
 
     //Constructors--------------------------------
@@ -45,13 +42,13 @@ public class Leads {
         setEmail(email);
         setCompanyName(companyName);
     }
-    public Leads(String namelead, String phoneLead, String emailLead, String companyLead, SalesRep salesRep) {
+    public Leads(String namelead, String phoneLead, String emailLead, String companyLead, SalesRep leadsListSR) {
         setId(ID_STR + idCounter++);
         setName(name);
         setPhone(phone);
         setEmail(email);
         setCompanyName(companyName);
-        setSalesRep(salesRep);
+        setLeadsListSR(leadsListSR);
     }
 
     //Getters and Setters-------------------------
@@ -100,12 +97,12 @@ public class Leads {
         this.companyName = companyName;
     }
 
-    public SalesRep getSalesRep() {
-        return salesRep;
+    public SalesRep getLeadsListSR() {
+        return leadsListSR;
     }
 
-    public void setSalesRep(SalesRep salesRep) {
-        this.salesRep = salesRep;
+    public void setLeadsListSR(SalesRep leadsListSR) {
+        this.leadsListSR = leadsListSR;
     }
 
     /* ______________________________________________________________________________________ */
