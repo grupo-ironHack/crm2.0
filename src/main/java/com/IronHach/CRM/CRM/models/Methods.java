@@ -194,6 +194,7 @@ public class Methods {
         String anwserNot = "N";
         String answer = "";
         String question = "Would you like to create a new Account?";
+        SalesRep rep = new SalesRep();
 
         System.out.println(question + ": " + anwserYes + "/" + anwserNot);
         answer = scanner.next();
@@ -204,15 +205,14 @@ public class Methods {
             System.out.println("Please introduce the ID account");
             if (arrayOfAcc.isEmpty()) {
                 throw new IllegalArgumentException("Sorry the list of accounts is empty");
-            } else {
+            } else if (answer.equals(anwserYes)) {
                 for (int i = 0; i < arrayOfAcc.size(); i++) {
-                    System.out.println(arrayOfAcc.get(i).getId());
-                    //es get(i) solo o + getId();
-
+                   // rep = new SalesRep(rep.getName(), rep.setAccountsSR(arrayOfAcc.get(i)));
+                    arrayOfSalesRep.add(rep);
                 }
             }
         }
-        return new Accounts();
+        return rep.getAccountsSR();
     }
 
     ////////////////////

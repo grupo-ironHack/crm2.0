@@ -55,17 +55,19 @@ public class Steps {
         System.out.println(ANSI_YELLOW +
                 "\n                 PLEASE TYPE WHAT DO YOU WANT TO DO" + ANSI_YELLOW +
                 "\n---------------------------------------------------------------------" + ANSI_RESET +
-                "\n1.-Type 'New Lead' to add a new lead." +
-                "\n2.-Type 'Show Leads' to see list of leads you already have." +
-                "\n3.-Type 'Lookup lead <id>' to see to the info of an individual lead (<id> = id of the Lead)." +
-                "\n4.-Type 'Convert <id>' to Contact to see the info of an individual contact (<id> = id of the lead). " +
-                "\n5.-Type 'Create opportunity'" +
-                "\n6.-Type 'show opportunity' to display the opportunities you already have." +
-                "\n7.-Type 'opportunity status' to close the opportunity WON or LOST." +
-                "\n8.-Type 'create account' to display the opportunities you already have." +
-                "\n9.-Type 'show account' to display the opportunities you already have." +
-                "\n9.-Type 'Reporting Functionality' to display Reporting Functionality 📈 menu." +
-                "\n10.-Type 'Quit' to close ⏏️ the application."
+                "\n1.-Type 'New Sales Rep' to add a new salesRep." +
+                "\n2.-Type 'Show Sales Rep' to see list of salesRep you already have." +
+                "\n3.-Type 'New Lead' to add a new lead." +
+                "\n4.-Type 'Show Leads' to see list of leads you already have." +
+                "\n5.-Type 'Lookup lead <id>' to see to the info of an individual lead (<id> = id of the Lead)." +
+                "\n6.-Type 'Convert <id>' to Contact to see the info of an individual contact (<id> = id of the lead). " +
+                "\n7.-Type 'Create opportunity'" +
+                "\n8.-Type 'show opportunity' to display the opportunities you already have." +
+                "\n9.-Type 'opportunity status' to close the opportunity WON or LOST." +
+                "\n10.-Type 'create account' to display the opportunities you already have." +
+                "\n11.-Type 'show account' to display the opportunities you already have." +
+                "\n12.-Type 'Reporting Functionality' to display Reporting Functionality 📈 menu." +
+                "\n13.-Type 'Quit' to close the application."
         );
         while (answermenuInput.isEmpty()) {
             answermenuInput = scanner.nextLine();
@@ -87,6 +89,13 @@ public class Steps {
 
 
         switch (input) {
+            case "new sales rep":
+                System.out.println("You type New sales rep");
+                Methods.generateNewSalesRep();
+                return true;
+            case "show sales rep":
+                System.out.println("You type Show sales rep");
+                Methods.showSalesRep();
             case "new lead":
                 System.out.println("You type New lead");
                 Methods.generateNewLead();
