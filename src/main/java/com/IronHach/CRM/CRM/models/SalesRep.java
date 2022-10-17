@@ -15,6 +15,7 @@ public class SalesRep {
 
     private String name;
 
+<<<<<<< HEAD
     //---------------------------------------------
     @OneToOne
     private Accounts accountsSR;
@@ -26,10 +27,17 @@ public class SalesRep {
     private Set<Leads> arrayOfLeads;
 
     //---------------------------------------------
+=======
+    public SalesRep(String name) {
+        setId(ID_STR + idCounter++);
+        setName(name);
+    }
+>>>>>>> origin
 
     public SalesRep() {
     }
 
+<<<<<<< HEAD
     public SalesRep(Long id, String name, Accounts accountsSR, Set<Opportunity> arrayOfOpps, Set<Leads> arrayOfLeads) {
         this.id = id;
         this.name = name;
@@ -47,6 +55,13 @@ public class SalesRep {
     }
 
     public void setId(Long id) {
+=======
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+>>>>>>> origin
         this.id = id;
     }
 
@@ -57,6 +72,7 @@ public class SalesRep {
     public void setName(String name) {
         this.name = name;
     }
+<<<<<<< HEAD
 
     public Accounts getAccountsSR() {
         return accountsSR;
@@ -81,6 +97,8 @@ public class SalesRep {
     public void setArrayOfLeads(Set<Leads> arrayOfLeads) {
         this.arrayOfLeads = arrayOfLeads;
     }
+=======
+>>>>>>> origin
 }
 
 

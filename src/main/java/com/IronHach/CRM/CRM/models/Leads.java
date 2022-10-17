@@ -34,6 +34,12 @@ public class Leads {
     @ManyToOne
     private SalesRep leadsListSR;
 
+<<<<<<< HEAD
+=======
+    private Contact contact;
+
+    private SalesRep salesRep;
+>>>>>>> origin
     //---------------------------------------------
 
     //Constructors--------------------------------
@@ -45,8 +51,18 @@ public class Leads {
         setEmail(email);
         setCompanyName(companyName);
     }
+<<<<<<< HEAD
     public Leads(SalesRep leadsListSR) {
         this.leadsListSR = leadsListSR;
+=======
+    public Leads(String namelead, String phoneLead, String emailLead, String companyLead, SalesRep salesRep) {
+        setId(ID_STR + idCounter++);
+        setName(name);
+        setPhone(phone);
+        setEmail(email);
+        setCompanyName(companyName);
+        setSalesRep(salesRep);
+>>>>>>> origin
     }
 
     //Getters and Setters-------------------------
@@ -94,6 +110,14 @@ public class Leads {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public SalesRep getSalesRep() {
+        return salesRep;
+    }
+
+    public void setSalesRep(SalesRep salesRep) {
+        this.salesRep = salesRep;
     }
 
     /* ______________________________________________________________________________________ */

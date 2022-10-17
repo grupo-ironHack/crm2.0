@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CrmApplication implements CommandLineRunner {
+<<<<<<< HEAD
 
 
 	
@@ -16,11 +17,15 @@ public class CrmApplication implements CommandLineRunner {
 		SpringApplication.run(CrmApplication.class, args);
 	}
 
+=======
+	public static void main(String[] args) {
+		SpringApplication.run(CrmApplication.class, args);
+	}
+>>>>>>> origin
 	@Override
 	public void run(String... args) throws Exception {
 
 		String action = "";
-
 
 		Boolean quitApp = true;
 		try {

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.function.ServerResponse;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static com.IronHach.CRM.CRM.models.Accounts.setCountryList;
@@ -56,6 +57,7 @@ public class Methods {
         String phoneLead = "";
         String emailLead = "";
         String companyLead = "";
+        SalesRep salesRep = new SalesRep();
         while (namelead.split(" +").length < 2 || namelead.isEmpty()) {
             System.out.println("Please enter name and last name:");
             namelead = scanner.nextLine();
@@ -66,11 +68,19 @@ public class Methods {
         emailLead = scanner.nextLine();
         System.out.println("Please enter the company name:");
         companyLead = scanner.nextLine();
+<<<<<<< HEAD
         Leads lead = new Leads(namelead, phoneLead, emailLead, companyLead);
         //-------
         leadsRepository.save(lead);
         //List<Object[]> leadsOptional = leadsRepository.save();
         //-------
+=======
+        System.out.println("Please enter de ID  of your Sales Repository");
+        salesRep.setId(scanner.nextLine());
+
+
+        Leads lead = new Leads(namelead, phoneLead, emailLead, companyLead, salesRep);
+>>>>>>> origin
         System.out.println("Your lead " + namelead.toUpperCase() + " was created successfully!!!");
         addLeadtoList(lead);
         return lead;
@@ -113,13 +123,15 @@ public class Methods {
             }
         }
     }
-
+    ///////////////////////
+    //LEAD & CONTACT METHOD
+    ///////////////////////
     public static Contact convertIdLead(String idParam) {
         Contact contact = new Contact();
         for (int i = 0; i < arrayOfLeads.size(); i++) {
             if (idParam.equals(arrayOfLeads.get(i).getId())) {
-                contact = new Contact(arrayOfLeads.get(i).getName(), arrayOfLeads.get(i).getPhone(), arrayOfLeads.get(i).getEmail(), arrayOfLeads.get(i).getCompanyName());
-                System.out.println(arrayOfLeads.get(i).getPhone() + " " + arrayOfLeads.get(i).getEmail() + " " + arrayOfLeads.get(i).getCompanyName());
+                contact = new Contact(arrayOfLeads.get(i).getName(), arrayOfLeads.get(i).getPhone(), arrayOfLeads.get(i).getEmail(), arrayOfLeads.get(i).getCompanyName(), arrayOfLeads.get(i).getSalesRep());
+                System.out.println(arrayOfLeads.get(i).getPhone() + " " + arrayOfLeads.get(i).getEmail() + " " + arrayOfLeads.get(i).getCompanyName() + " " + arrayOfLeads.get(i).getSalesRep());
                 arrayOfLeads.remove(i);
                 System.out.println("The list of leads is know: " + arrayOfLeads.size());
                 return contact;
@@ -284,6 +296,53 @@ public class Methods {
             }
         }
 
+    }
+    ///////////////////
+    //SALES REP METHODS
+    //////////////////
+
+    public static void addSalesReptoList(SalesRep salesParam) {
+        arrayOfSalesRep.add(salesParam);
+    }
+    public static SalesRep generateNewSalesRep(){
+        String nameSalesRep = "";
+        String nameDm = "";
+
+        while (nameSalesRep.split(" +").length < 2 || nameSalesRep.isEmpty()) {
+            System.out.println("Please enter name and last name:");
+            nameSalesRep = scanner.nextLine();
+        }
+        while (nameDm.split(" +").length < 2 || nameDm.isEmpty()) {
+            System.out.println("Please enter name and last name of the decision maker:");
+            nameDm = scanner.nextLine();
+        }
+        /////////////////////////////////////////////////
+        ////---> NO SÉ SI PIDEN LA LINEA 263 REVISAR <---
+        /////////////////////////////////////////////////
+
+        SalesRep salesRep = new SalesRep(nameSalesRep);
+        System.out.println("Your lead " + nameSalesRep.toUpperCase() + " was created successfully!!!");
+        addSalesReptoList(salesRep);
+        return salesRep;
+
+    }
+
+    public static void showSalesRep() {
+        if (arrayOfSalesRep.isEmpty()) {
+            System.out.println("Sorry the list of leads is empty");
+            String action = "";
+            Boolean quitApp = true;
+
+            while (quitApp) {
+                action = Steps.menu();
+                quitApp = Steps.actions(action);
+                action = "";
+            }
+        } else {
+            for (int i = 0; i < arrayOfSalesRep.size(); i++) {
+                System.out.println(arrayOfSalesRep.get(i).getId() + " " + arrayOfSalesRep.get(i).getName());
+            }
+        }
     }
 
     ///////////////////
